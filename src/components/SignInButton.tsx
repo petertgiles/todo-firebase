@@ -36,12 +36,9 @@ const SignInButton = () => {
   const handleClick = currentUser ? () => auth.signOut() : () => tryLogin();
 
   return (
-    <>
-      <span>Hello auth</span>
-      <button type="button" onClick={handleClick} className="btn btn-blue">
-        {label}
-      </button>
-    </>
+    <button type="button" onClick={handleClick} className="btn btn-blue">
+      {label}
+    </button>
   );
 };
 
