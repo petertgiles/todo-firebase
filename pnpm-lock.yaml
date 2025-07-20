@@ -11,9 +11,6 @@ importers:
       firebase:
         specifier: ^12.0.0
         version: 12.0.0
-      firebaseui:
-        specifier: ^6.1.0
-        version: 6.1.0(firebase@12.0.0)
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -918,9 +915,6 @@ packages:
   deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
 
-  dialog-polyfill@0.4.10:
-    resolution: {integrity: sha512-j5yGMkP8T00UFgyO+78OxiN5vC5dzRQF3BEio+LhNvDbyfxWBsi3sfPArDm54VloaJwy2hm3erEiDWqHRC8rzw==}
-
   electron-to-chromium@1.5.187:
     resolution: {integrity: sha512-cl5Jc9I0KGUoOoSbxvTywTa40uspGJt/BDBoDLoxJRSBpWh4FFXBsjNRHfQrONsV/OoEjDfHUmZQa2d6Ze4YgA==}
 
@@ -1035,11 +1029,6 @@ packages:
 
   firebase@12.0.0:
     resolution: {integrity: sha512-KV+OrMJpi2uXlqL2zaCcXb7YuQbY/gMIWT1hf8hKeTW1bSumWaHT5qfmn0WTpHwKQa3QEVOtZR2ta9EchcmYuw==}
-
-  firebaseui@6.1.0:
-    resolution: {integrity: sha512-5WiVYVxPGMANuZKxg6KLyU1tyqIsbqf/59Zm4HrdFYwPtM5lxxB0THvgaIk4ix+hCgF0qmY89sKiktcifKzGIA==}
-    peerDependencies:
-      firebase: ^9.1.3 || ^10.0.0
 
   flat-cache@4.0.1:
     resolution: {integrity: sha512-f7ccFPK3SXFHpx15UIGyRJ/FJQctuKZ0zVuN3frBo4HnK3cay9VEW0R6yPYFHC0AgqhukPzKjq22t5DmAyqGyw==}
@@ -1173,10 +1162,6 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
-
-  material-design-lite@1.3.0:
-    resolution: {integrity: sha512-ao76b0bqSTKcEMt7Pui+J/S3eVF0b3GWfuKUwfe2lP5DKlLZOwBq37e0/bXEzxrw7/SuHAuYAdoCwY6mAYhrsg==}
-    engines: {node: '>=0.12.0'}
 
   merge2@1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
@@ -2384,8 +2369,6 @@ snapshots:
 
   deep-is@0.1.4: {}
 
-  dialog-polyfill@0.4.10: {}
-
   electron-to-chromium@1.5.187: {}
 
   emoji-regex@8.0.0: {}
@@ -2570,12 +2553,6 @@ snapshots:
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
 
-  firebaseui@6.1.0(firebase@12.0.0):
-    dependencies:
-      dialog-polyfill: 0.4.10
-      firebase: 12.0.0
-      material-design-lite: 1.3.0
-
   flat-cache@4.0.1:
     dependencies:
       flatted: 3.3.3
@@ -2671,8 +2648,6 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
-
-  material-design-lite@1.3.0: {}
 
   merge2@1.4.1: {}
 
