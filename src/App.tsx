@@ -1,10 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { initializeApp } from "firebase/app";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAKGv9ycTm2-HcP20gHPrKbJPVQAa_nxh4",
+    authDomain: "petertgiles-todo.firebaseapp.com",
+    projectId: "petertgiles-todo",
+    storageBucket: "petertgiles-todo.firebasestorage.app",
+    messagingSenderId: "982994779941",
+    appId: "1:982994779941:web:ef36b1835a800f5fda64cc",
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
 
   return (
     <>
@@ -16,7 +30,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>TODO Webapp</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
@@ -29,7 +43,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
