@@ -38,7 +38,7 @@ const SignInButton = () => {
   return (
     <>
       <span>Hello auth</span>
-      <button type="button" onClick={handleClick}>
+      <button type="button" onClick={handleClick} className="btn btn-blue">
         {label}
       </button>
     </>
