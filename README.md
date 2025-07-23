@@ -70,4 +70,5 @@ export default tseslint.config([
 
 pnpm install
 pnpm run dev
+firebase deploy
 firebase hosting:channel:deploy todo-preview
