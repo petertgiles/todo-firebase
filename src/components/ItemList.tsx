@@ -5,11 +5,15 @@ import { listItemConverter, type ListItem } from "../types/ListItem";
 
 const ItemList = () => {
   const { app } = useFirebaseApp();
+  const [asyncErrorMessage, setAsyncErrorMessage] = useState<string | null>();
+  if (asyncErrorMessage) {
+    throw asyncErrorMessage;
+  }
 
   const [listItems, setListItems] = useState<(ListItem & { id: string })[]>([]);
 
   if (!app) {
-    return <p>"No Firebase app available"</p>;
+    throw new Error("No Firebase app available");
   }
 
   const db = getFirestore(app);
@@ -26,7 +30,7 @@ const ItemList = () => {
       setListItems(newListItems);
     };
 
-    fetchListItems();
+    fetchListItems().catch((reason) => setAsyncErrorMessage(reason));
   }, [db]);
 
   return (
