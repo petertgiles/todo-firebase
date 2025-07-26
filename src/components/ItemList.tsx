@@ -1,10 +1,14 @@
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 import { useFirebaseApp } from "../providers/firebase/hooks";
 import { useEffect, useState } from "react";
 import { listItemConverter, type ListItem } from "../types/ListItem";
 
 const ItemList = () => {
   const { app } = useFirebaseApp();
+  if (!app) {
+    throw new Error("No Firebase app available");
+  }
+
   const [asyncErrorMessage, setAsyncErrorMessage] = useState<string | null>();
   if (asyncErrorMessage) {
     throw asyncErrorMessage;
@@ -12,31 +16,40 @@ const ItemList = () => {
 
   const [listItems, setListItems] = useState<(ListItem & { id: string })[]>([]);
 
-  if (!app) {
-    throw new Error("No Firebase app available");
-  }
-
   const db = getFirestore(app);
 
   useEffect(() => {
-    const fetchListItems = async () => {
-      const querySnapshot = await getDocs(
-        collection(db, "list_items").withConverter(listItemConverter)
-      );
-      const newListItems = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setListItems(newListItems);
-    };
+    const unsubscribe = onSnapshot(
+      collection(db, "list_items").withConverter(listItemConverter),
+      (snapshot) => {
+        const newListItems = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
 
-    fetchListItems().catch((reason) => setAsyncErrorMessage(reason));
+        newListItems.sort((item1, item2) =>
+          item1.label > item2.label ? 1 : -1
+        );
+        setListItems(newListItems);
+      },
+      (error) => setAsyncErrorMessage(error.message)
+    );
+    return unsubscribe;
   }, [db]);
 
   return (
-    <ul>
+    <ul className="flex flex-col gap-2">
       {listItems.map((item) => (
-        <li key={item.id}>{`${item.label} -> ${item.checked}`}</li>
+        <div key={item.id}>
+          <input
+            type="checkbox"
+            id={item.id}
+            name={item.id}
+            checked={item.checked}
+            readOnly
+          />
+          <label htmlFor={item.id}> {item.label}</label>
+        </div>
       ))}
     </ul>
   );
