@@ -1,4 +1,10 @@
-import { collection, getFirestore, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getFirestore,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
 import { useFirebaseApp } from "../providers/firebase/hooks";
 import { useEffect, useState } from "react";
 import { listItemConverter, type ListItem } from "../types/ListItem";
@@ -37,6 +43,16 @@ const ItemList = () => {
     return unsubscribe;
   }, [db]);
 
+  const handleItemCheckedChange: (
+    id: string,
+    currentlyIsChecked: boolean
+  ) => void = async (id, currentlyIsChecked) => {
+    const documentRef = doc(db, "list_items", id);
+    await updateDoc(documentRef, {
+      checked: !currentlyIsChecked,
+    });
+  };
+
   return (
     <ul className="flex flex-col gap-2">
       {listItems.map((item) => (
@@ -46,7 +62,7 @@ const ItemList = () => {
             id={item.id}
             name={item.id}
             checked={item.checked}
-            readOnly
+            onChange={() => handleItemCheckedChange(item.id, item.checked)}
           />
           <label htmlFor={item.id}> {item.label}</label>
         </div>
