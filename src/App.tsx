@@ -23,7 +23,9 @@ function App() {
         <FirebaseAuthProvider>
           <div className="flex flex-col">
             <Header />
-            <ItemList />
+            <ErrorBoundary fallbackRender={fallbackRender}>
+              <ItemList />
+            </ErrorBoundary>
           </div>
         </FirebaseAuthProvider>
       </FirebaseAppProvider>
