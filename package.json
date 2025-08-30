@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "admin_name": "ts-node admin/admin-users.js"
+    "admin_users": "tsx admin/admin-users.js"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
