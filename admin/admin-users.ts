@@ -1,27 +1,41 @@
 #!/usr/bin/env tsx
 
-import * as dotenv from 'dotenv'
-import { initAdmin } from './firebaseAdmin';
-import {getAuth} from "firebase-admin/auth";
+import * as dotenv from "dotenv";
+import { initAdmin } from "./firebaseAdmin";
+import { getAuth } from "firebase-admin/auth";
+import { program, Argument } from "commander";
 
-dotenv.config({path: "admin/.env"});
+dotenv.config({ path: "admin/.env" });
+await initAdmin();
 
- await initAdmin();
+program
+  .command("view <email_address>")
+  .description("View the details of a user")
+  .action(async (email_address) => {
+    const user = await getAuth().getUserByEmail(email_address);
+    console.info(JSON.stringify(user, null, 2));
+  });
 
-  getAuth()
-    .getUserByEmail('')
-    .then((user) => {
-      
-      console.debug(JSON.stringify(user, null, 2))
-
-        // Add incremental custom claim without overwriting existing claims.
+program
+  .command("authorize <email_address>")
+  .description("Authorize a user to use the app")
+  .action(async (email_address) => {
+    const user = await getAuth().getUserByEmail(email_address);
     const currentCustomClaims = user.customClaims ?? {};
-    
-      // Add level.
-      currentCustomClaims['app_user'] = true;
-      // Add custom claims for additional privileges.
-      return getAuth().setCustomUserClaims(user.uid, currentCustomClaims);
-    
+    currentCustomClaims["app_user"] = true;
+    await getAuth().setCustomUserClaims(user.uid, currentCustomClaims);
+    console.info("Success!");
+  });
 
-    })
-    .catch((reason) => console.error(`Failure: ${reason}`));
+program
+  .command("deauthorize <email_address>")
+  .description("Removes authorize for a user to use the app")
+  .action(async (email_address) => {
+    const user = await getAuth().getUserByEmail(email_address);
+    const currentCustomClaims = user.customClaims ?? {};
+    delete currentCustomClaims["app_user"];
+    await getAuth().setCustomUserClaims(user.uid, currentCustomClaims);
+    console.info("Success!");
+  });
+
+program.parse();
